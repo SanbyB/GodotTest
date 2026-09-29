@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://d3pnx1qtwd2rm"]
+
+[ext_resource type="Script" uid="uid://yr2srosnse1k" path="res://scripts/character.gd" id="1_agfs1"]
+[ext_resource type="Texture2D" uid="uid://cea277y7ktbqe" path="res://Tiny Swords (Free Pack)/Units/Black Units/Warrior/selected.png" id="2_lrhn5"]
+[ext_resource type="Texture2D" uid="uid://dfc0040tc7ie5" path="res://Tiny Swords (Free Pack)/Units/Black Units/Warrior/unselected.png" id="3_my7n2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dp8ca"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_my7n2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp8ca"]
+atlas = ExtResource("2_lrhn5")
+region = Rect2(0, 0, 112, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lw5n"]
+atlas = ExtResource("2_lrhn5")
+region = Rect2(112, 0, 112, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cgup"]
+atlas = ExtResource("3_my7n2")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mcmht"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp8ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lw5n")
+}],
+"loop": 1,
+"name": &"selected",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cgup")
+}],
+"loop": 1,
+"name": &"unselected",
+"speed": 5.0
+}]
+
+[node name="Character" type="CharacterBody2D" unique_id=1507366592]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+input_pickable = true
+script = ExtResource("1_agfs1")
+
+[node name="CollisionExit" type="CollisionShape2D" parent="." unique_id=988667960]
+position = Vector2(4.172325e-07, -4.172325e-07)
+shape = SubResource("RectangleShape2D_dp8ca")
+
+[node name="CollisionEnter" type="CollisionShape2D" parent="." unique_id=94438965]
+shape = SubResource("RectangleShape2D_my7n2")
+
+[node name="select" type="AnimatedSprite2D" parent="." unique_id=231124971]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_mcmht")
+animation = &"selected"
+autoplay = "unselected"
+frame_progress = 0.9635305
+
+[connection signal="mouse_shape_entered" from="." to="." method="_on_mouse_shape_entered"]
+[connection signal="mouse_shape_exited" from="." to="." method="_on_mouse_shape_exited"]
